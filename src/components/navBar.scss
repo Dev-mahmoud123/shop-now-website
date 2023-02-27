@@ -20,7 +20,7 @@
                   font-family: Arial, Helvetica, sans-serif;
                   position: relative;
                  
-                  &::before {
+                  &::before  {
                         content: "";
                         position: absolute;
                         left: 5px;
@@ -31,9 +31,8 @@
                         margin: auto;
                         transition: all 0.3s ease;
                   }
-                  &:hover::before {
-                      width: calc(100% - 16px);
-                      
+                  &:hover::before{
+                      width: calc(100% - 16px);    
                   }
                  }
             }
