@@ -53,7 +53,7 @@ const NavBar = () => {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/login">
+              <NavLink className="nav-link" to="/auth">
                 Login
               </NavLink>
             </li>

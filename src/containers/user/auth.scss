@@ -1,0 +1,24 @@
+@import "../../mixin/app_mixin";
+
+.auth {
+  @include page-style;
+
+
+  .wrapper {
+    width: 500px;
+    border: 1px solid #333;
+    margin: 0 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    padding: 10px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+}

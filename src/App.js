@@ -7,7 +7,7 @@ import Cart from "./containers/cart/Cart";
 import Orders from "./containers/orders/Orders";
 import Favorites from "./containers/favorites/Favorites";
 import Complaints from "./containers/complaints/Complaints";
-import Login from "./containers/user/Login.jsx";
+import Auth from "./containers/user/Auth";
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
         <Route exact path="/favorites" element=<Favorites /> />
         <Route exact path="/complaints" element=<Complaints /> />
         <Route exact path="/cart" element=<Cart /> />
-        <Route exact path="/login" element=<Login /> />
+        <Route exact path="/auth" element=<Auth /> />
       </Routes>
     </div>
   );

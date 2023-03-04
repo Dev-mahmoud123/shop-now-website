@@ -1,89 +1,101 @@
-@import "../../mixin/app_mixin";
-
 .login {
-  @include page-style;
-  margin: 8% 0;
+  width: 100%;
 
-  &_container {
-    border: 1px solid black;
-    padding: 20px;
-    width: 40%;
-    border-radius: 8px;
+  h3 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
 
-    h3 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .input-box {
-      margin-bottom: 15px;
-      height: 40px;
-      padding: 0 5px;
+  .input-box {
+    width: 100%;
+    position: relative;
+    margin-bottom: 20px;
+    input {
       position: relative;
-      border-bottom: 1px solid black;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      outline: none;
+      background: transparent;
+      letter-spacing: 0.05em;
+      transition: 0.5s;
+      z-index: 10;
 
-      label {
-        position: absolute;
-        top:  -15px;
-        left: 5px;
-        transition: all 0.3s ease-in;
-        pointer-events: none;
+      &:valid,
+      &:focus {
+        ~ i {
+          height: 40px;
+        }
+        ~ span {
+          color: #45f3ff;
+          transform: translateX(-10px) translateY(-34px);
+        }
       }
-      input {
-        width: 100%;
-        height: 100%;
+    }
+
+    span {
+      position: absolute;
+      left: 0;
+      padding: 10px;
+      font-size: 1em;
+      letter-spacing: 0.05em;
+      transition: 0.5s;
+      color: #8f8f8f;
+      pointer-events: none;
+    }
+
+    i {
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      right: 0;
+      bottom: 0;
+      background: #45f3ff;
+      border-radius: 4px;
+      transition: 0.5s;
+      pointer-events: none;
+      z-index: 9;
+    }
+  }
+  .options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .remember-me {
+       input {
+          margin-right: 5px;
+       }
+    }
+    .forget-password {
+      button {
         border: none;
         outline: none;
-      }
-    }
-    .options {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      .remember-me {
-           input {
-              margin-right: 5px;
-              cursor: pointer;
-           }
-      }
-      .forget-password {
-            button {
-                  outline:none;
-                  border:none;
-                  background-color: transparent;
-                  color: blue;
-            }
-      }
-    }
-    .btn-login {
-      width: 100%;
-      height: 40px;
-      outline: none;
-      border: none;
-      background-color: blue;
-      color: white;
-      font-size: 20px;
-      font-weight: bold;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    p {
-      text-align: center;
-      margin-top: 10px;
-      a {
-            text-decoration: none;
-            margin-left: 5px;
+        background-color: transparent;
+        cursor: pointer;
+        &:hover {
+          color: blue;
+        }
       }
     }
   }
-}
-@media screen and (max-width: 991px) {
-  .login_container {
-    width: 60%;
+  .btn-submit {
+    width: 100%;
+    padding: 5px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: #3e62e1;
+    color: #fff;
+    font-size: 18px;
   }
-}
-@media screen and (max-width: 767px) {
-  .login_container {
-    width: 80%;
+ p{ 
+  text-align: center;
+  .btn-register {
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #3e62e1;
   }
-}
+}}

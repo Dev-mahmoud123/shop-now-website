@@ -1,20 +1,30 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./login.scss";
+import "./register.scss";
 
-function Login(props) {
+function Register(props) {
   //
   const [rememberMe, setRememberMe] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
   //
   const handleRemember = (e) => {
     setRememberMe(e.target.checked);
   };
   //
+  const handleName = (e) => {
+    setName(e.target.value);
+    console.log(e.target.value);
+  };
+  const handlePhone = (e) => {
+    setPhone(e.target.value);
+    console.log(e.target.value);
+  };
   const handleEmail = (e) => {
     setEmail(e.target.value);
     console.log(e.target.value);
@@ -28,8 +38,10 @@ function Login(props) {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "/api/login",
+        "/api/register",
         {
+          name,
+          phone,
           email,
           password,
         },
@@ -40,19 +52,42 @@ function Login(props) {
           },
         }
       );
+      setMessage(response.data.message);
       console.log(response.data.data);
       localStorage.setItem("token", response.data.data.token);
       navigate("/");
-    } catch (error) {
-      setError("Invalid email or password ");
+    } catch (_) {
+    
     }
   };
   //
   return (
-    <div className="login">
-      <h3>Login</h3>
+    <div className="register">
+      <h3>Register</h3>
 
       <form onSubmit={handleSubmit}>
+        <div className="input-box">
+          <input
+            required
+            type="text"
+            name="username"
+            value={name}
+            onChange={handleName}
+          />
+          <span>Username</span>
+          <i></i>
+        </div>
+        <div className="input-box">
+          <input
+            required
+            type="tel"
+            name="Phone"
+            value={phone}
+            onChange={handlePhone}
+          />
+          <span>Phone</span>
+          <i></i>
+        </div>
         <div className="input-box">
           <input
             required
@@ -87,25 +122,28 @@ function Login(props) {
             />
             <label htmlFor="remember">Remember me</label>
           </div>
-          <div className="forget-password">
-            <button>Forget Password ?</button>
-          </div>
         </div>
-        <button className="btn-submit" type="submit" title="Login" tabIndex="4">
-          Login
-        </button>
-      </form>
-      <p>
-        Don't have an account?
         <button
-          className="btn-register"
-          onClick={() => props.onFormSwitch("register")}
+          className="btn-submit"
+          type="submit"
+          title="Register"
+          tabIndex="4"
         >
           Register
         </button>
-      </p>
+        <p>{message}</p>
+        <p>
+          Already have an account?
+          <button
+            className="btn-login"
+            onClick={() => props.onFormSwitch("login")}
+          >
+            Login
+          </button>
+        </p>
+      </form>
     </div>
   );
 }
 
-export default Login;
+export default Register;
