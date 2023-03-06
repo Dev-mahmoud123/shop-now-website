@@ -4,7 +4,7 @@ import Register from "./Register";
 import "./auth.scss";
 
 function Auth() {
-  const [currentForm, setCurrentForm] = useState("");
+  const [currentForm, setCurrentForm] = useState("login");
 
   const toggleForm = (formName) => {
     setCurrentForm(formName);

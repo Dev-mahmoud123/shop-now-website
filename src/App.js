@@ -8,11 +8,14 @@ import Orders from "./containers/orders/Orders";
 import Favorites from "./containers/favorites/Favorites";
 import Complaints from "./containers/complaints/Complaints";
 import Auth from "./containers/user/Auth";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <div className="App">
       <NavBar />
+      <ToastContainer/>
       <Routes>
         <Route exact path="/" element=<Home /> />
         <Route exact path="/products" element=<Products /> />

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import "./login.scss";
 
 function Login(props) {
@@ -8,7 +9,7 @@ function Login(props) {
   const [rememberMe, setRememberMe] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
   //
   const handleRemember = (e) => {
@@ -41,10 +42,16 @@ function Login(props) {
         }
       );
       console.log(response.data.data);
+      setMessage(response.data.message);
+      toast.success(message , {
+        position: "bottom-right"
+      })
       localStorage.setItem("token", response.data.data.token);
       navigate("/");
-    } catch (error) {
-      setError("Invalid email or password ");
+    } catch (_) {
+      toast.error(message , {
+        position: "bottom-left"
+      })
     }
   };
   //
@@ -91,7 +98,12 @@ function Login(props) {
             <button>Forget Password ?</button>
           </div>
         </div>
-        <button className="btn-submit" type="submit" title="Login" tabIndex="4">
+        <button
+          className="btn-submit"
+          type="submit"
+          title="Login"
+          tabIndex="4"
+        >
           Login
         </button>
       </form>
@@ -104,6 +116,7 @@ function Login(props) {
           Register
         </button>
       </p>
+      <ToastContainer/>
     </div>
   );
 }

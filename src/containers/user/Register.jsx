@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import "./register.scss";
 
 function Register(props) {
@@ -53,13 +54,20 @@ function Register(props) {
         }
       );
       setMessage(response.data.message);
+      toast.success(message, {
+        position: "bottom-right",
+      });
       console.log(response.data.data);
       localStorage.setItem("token", response.data.data.token);
       navigate("/");
     } catch (_) {
-    
+      toast.error(message , {
+        position: "bottom-left"
+      })
     }
   };
+  //
+  const notify = () => toast(message);
   //
   return (
     <div className="register">
@@ -128,10 +136,10 @@ function Register(props) {
           type="submit"
           title="Register"
           tabIndex="4"
+          onClick={() => notify}
         >
           Register
         </button>
-        <p>{message}</p>
         <p>
           Already have an account?
           <button
@@ -142,6 +150,7 @@ function Register(props) {
           </button>
         </p>
       </form>
+      <ToastContainer />
     </div>
   );
 }
