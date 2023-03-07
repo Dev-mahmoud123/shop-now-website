@@ -1,0 +1,68 @@
+@import "../../mixin/app_mixin.scss";
+
+.user-profile {
+   @include page-style;
+
+   .wrapper {
+      @include wrapper-style;
+      display: block;
+      width: 700px;
+
+      h3 {
+            text-align: center;
+      }
+      .content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+
+            .main-info {
+                  flex: 1;
+                   text-align: center;
+                  img {
+                        width: 200px;
+                        height: 200px;
+                        border-radius: 50%;
+                        border: 1px solid #333;
+                        padding: 2px ;
+                       
+                  }
+                  p {
+                       
+                        font-size: 20px;
+                        font-weight: 600;
+                        margin-top: 20px;
+                  }
+            }
+            .side-info {
+                  flex: 1;
+                  p {
+                        background-color: #ccc;
+                        border-radius: 5px;
+                  border: 1px solid #888;
+                        span {
+                              background-color: white;
+                              display: inline-block;
+                              height: 100%;
+                              width: 50px;
+                              border-radius:  5px 0 0  5px ;
+                              padding: 3px 0 3px 1px;
+                              margin-right: 5px;
+      
+                        }
+                  }
+            }
+      }
+   }
+}
+
+@media screen and (max-width :676px ) {
+      .user-profile .wrapper {
+            width: 100%;
+            margin-top: 50px;
+      }
+      .user-profile .wrapper .content {
+            flex-direction: column;
+      }
+}

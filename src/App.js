@@ -10,6 +10,7 @@ import Complaints from "./containers/complaints/Complaints";
 import Auth from "./containers/user/Auth";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import UserProfile from "./containers/user/UserProfile";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route exact path="/complaints" element=<Complaints /> />
         <Route exact path="/cart" element=<Cart /> />
         <Route exact path="/auth" element=<Auth /> />
+        <Route exact path="/user-profile" element=<UserProfile /> />
       </Routes>
     </div>
   );

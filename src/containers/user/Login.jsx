@@ -41,13 +41,13 @@ function Login(props) {
           },
         }
       );
-      console.log(response.data.data);
+  
       setMessage(response.data.message);
       toast.success(message , {
         position: "bottom-right"
       })
       localStorage.setItem("token", response.data.data.token);
-      navigate("/");
+      navigate("/user-profile");
     } catch (_) {
       toast.error(message , {
         position: "bottom-left"
