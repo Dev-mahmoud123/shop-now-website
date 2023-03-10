@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "./login.scss";
 
 function Login(props) {
@@ -9,8 +9,8 @@ function Login(props) {
   const [rememberMe, setRememberMe] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
   const navigate = useNavigate();
+
   //
   const handleRemember = (e) => {
     setRememberMe(e.target.checked);
@@ -18,40 +18,39 @@ function Login(props) {
   //
   const handleEmail = (e) => {
     setEmail(e.target.value);
-    console.log(e.target.value);
   };
   const handlePassword = (e) => {
     setPassword(e.target.value);
-    console.log(e.target.value);
   };
   //
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "/api/login",
+        "api/login",
         {
           email,
           password,
         },
         {
-          Headers: {
+          headers: {
             lang: "en",
             "Content-Type": "application/json",
           },
         }
       );
-  
-      setMessage(response.data.message);
-      toast.success(message , {
-        position: "bottom-right"
-      })
+      toast.success(response.data.message, {
+        position: "bottom-left",
+      });
+      if (rememberMe) {
+        localStorage.setItem("rememberMe", true);
+      }
       localStorage.setItem("token", response.data.data.token);
-      navigate("/user-profile");
-    } catch (_) {
-      toast.error(message , {
-        position: "bottom-left"
-      })
+      navigate("/");
+    } catch (error) {
+      toast.error(error.response.data.message, {
+        position: "bottom-right",
+      });
     }
   };
   //
@@ -98,12 +97,7 @@ function Login(props) {
             <button>Forget Password ?</button>
           </div>
         </div>
-        <button
-          className="btn-submit"
-          type="submit"
-          title="Login"
-          tabIndex="4"
-        >
+        <button className="btn-submit" type="submit" title="Login" tabIndex="4">
           Login
         </button>
       </form>
@@ -116,7 +110,6 @@ function Login(props) {
           Register
         </button>
       </p>
-      <ToastContainer/>
     </div>
   );
 }

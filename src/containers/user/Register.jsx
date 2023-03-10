@@ -11,7 +11,6 @@ function Register(props) {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
   const navigate = useNavigate();
   //
   const handleRemember = (e) => {
@@ -20,19 +19,15 @@ function Register(props) {
   //
   const handleName = (e) => {
     setName(e.target.value);
-    console.log(e.target.value);
   };
   const handlePhone = (e) => {
     setPhone(e.target.value);
-    console.log(e.target.value);
   };
   const handleEmail = (e) => {
     setEmail(e.target.value);
-    console.log(e.target.value);
   };
   const handlePassword = (e) => {
     setPassword(e.target.value);
-    console.log(e.target.value);
   };
   //
   const handleSubmit = async (event) => {
@@ -47,27 +42,26 @@ function Register(props) {
           password,
         },
         {
-          Headers: {
+          headers: {
             lang: "en",
             "Content-Type": "application/json",
           },
         }
       );
-      setMessage(response.data.message);
-      toast.success(message, {
+      toast.success(response.data.message, {
         position: "bottom-right",
       });
-      console.log(response.data.data);
+      if (rememberMe) {
+        localStorage.setItem("rememberMe", true);
+      }
       localStorage.setItem("token", response.data.data.token);
       navigate("/");
-    } catch (_) {
-      toast.error(message , {
-        position: "bottom-left"
-      })
+    } catch (error) {
+      toast.error(error.response.data.message, {
+        position: "bottom-left",
+      });
     }
   };
-  //
-  const notify = () => toast(message);
   //
   return (
     <div className="register">
@@ -136,7 +130,6 @@ function Register(props) {
           type="submit"
           title="Register"
           tabIndex="4"
-          onClick={() => notify}
         >
           Register
         </button>
@@ -150,7 +143,6 @@ function Register(props) {
           </button>
         </p>
       </form>
-      <ToastContainer />
     </div>
   );
 }
