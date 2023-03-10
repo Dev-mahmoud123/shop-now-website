@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
+import "./banner.scss";
 
 function Banner() {
   const [banner, setBanner] = useState([]);
@@ -11,14 +11,16 @@ function Banner() {
       const response = await axios.get("/api/banners");
       setBanner(response.data.data);
     } catch (error) {
-      toast.error(error.response.data.message, {
-        position: "bottom-left",
-      });
+      console.log(error)
     }
   };
   useEffect(() => {
     getBanner();
-  }, []);
+    const intervalId = setInterval((index) => {
+      setActiveIndex((activeIndex + 1) % banner.length);
+    }, 5000);
+    return () => clearInterval(intervalId);
+  }, [banner.length, activeIndex]);
 
   const handleSlide = (index) => {
     setActiveIndex(index);
@@ -77,9 +79,9 @@ function Banner() {
         type="button"
         data-bs-target="#carouselExampleIndicators"
         data-bs-slide="next"
-        onClick={()=> handleSlide(
-          activeIndex === banner.length - 1 ? 0 : activeIndex + 1
-        )}
+        onClick={() =>
+          handleSlide(activeIndex === banner.length - 1 ? 0 : activeIndex + 1)
+        }
       >
         <span className="carousel-control-next-icon" aria-hidden="true"></span>
         <span className="visually-hidden">Next</span>
