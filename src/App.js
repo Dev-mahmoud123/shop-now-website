@@ -11,6 +11,7 @@ import Auth from "./containers/user/Auth";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import UserProfile from "./containers/user/UserProfile";
+import CategoryProducts from "./containers/home/CategoryProducts";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route exact path="/cart" element=<Cart /> />
         <Route exact path="/auth" element=<Auth /> />
         <Route exact path="/user-profile" element=<UserProfile /> />
+        <Route exact path="/category_products/:id" element=<CategoryProducts/> />
       </Routes>
     </div>
   );

@@ -52,6 +52,9 @@
                         color: #777;
                    text-decoration: line-through;
                   }
+                  .current-price {
+                        font-weight: 500;
+                  }
               }
               .action-buttons {
                   width: 100%;
@@ -71,7 +74,7 @@
                         cursor: pointer;
 
                         &:hover {
-                              color: red;
+                              color: rgb(8, 135, 240);
                         }
                   }
               }
