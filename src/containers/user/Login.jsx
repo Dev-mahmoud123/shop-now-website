@@ -44,8 +44,12 @@ function Login(props) {
       });
       if (rememberMe) {
         localStorage.setItem("rememberMe", true);
+        // Set a long-lived cookie if "Remember me" is checked
+        // document.cookie = `rememberMe=true; max-age=${30 * 24 * 60 * 60};`;
       }
       localStorage.setItem("token", response.data.data.token);
+      // Set the authentication token in an HTTP-only cookie
+      // document.cookie = `token=${response.data.data.token}; HttpOnly; sameSite=Strict; path=/; secure`;
       navigate("/");
     } catch (error) {
       toast.error(error.response.data.message, {

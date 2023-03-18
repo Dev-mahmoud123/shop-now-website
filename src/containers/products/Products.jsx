@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./product.scss";
 
 function Products() {
@@ -46,6 +47,7 @@ function Products() {
                   <i className="fa-solid fa-cart-shopping"></i>
                 </button>
               </div>
+              <Link to={`/product_details/${product.id}`} className = "more-info">More Info</Link>
             </div>
           );
         })}
