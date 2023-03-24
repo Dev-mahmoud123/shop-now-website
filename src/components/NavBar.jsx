@@ -6,8 +6,8 @@ const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
-        <NavLink className="navbar-brand" href="/#">
-          <img src={logo} alt="shop now logo" className="logo" />
+        <NavLink className="navbar-brand" to="/">
+          <img src={logo} className="logo" alt="logo" />
         </NavLink>
         <button
           className="navbar-toggler"
@@ -23,39 +23,39 @@ const NavBar = () => {
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <NavLink className="nav-link active" aria-current="page" to="/">
+              <a className="nav-link active" aria-current="page" href="/">
                 Home
-              </NavLink>
+              </a>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/products">
+              <a className="nav-link" href="/products">
                 Products
-              </NavLink>
+              </a>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/orders">
+              <a className="nav-link" href="/orders">
                 Orders
-              </NavLink>
+              </a>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/favorites">
+              <a className="nav-link" href="/favorites">
                 Favorites
-              </NavLink>
+              </a>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/complaints">
+              <a className="nav-link" href="/complaints">
                 Complaints
-              </NavLink>
+              </a>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/cart">
+              <a className="nav-link" href="/carts">
                 Carts
-              </NavLink>
+              </a>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/auth">
+              <a className="nav-link" href="/login">
                 Login
-              </NavLink>
+              </a>
             </li>
           </ul>
         </div>
