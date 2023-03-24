@@ -34,20 +34,22 @@ function Products() {
               <img src={product.image} alt={product.name} />
               <div className="product-name">{product.name}</div>
               <div className="product-price">
-              <span className="current-price">{product.price}LE</span>
-              {product.discount > 0 && (
-                <span className="old-price">{product.old_price}LE</span>
-              )}
+                <span className="current-price">{product.price}LE</span>
+                {product.discount > 0 && (
+                  <span className="old-price">{product.old_price}LE</span>
+                )}
               </div>
               <div className="action-buttons">
-                <button>
+                <button className={`${product.in_favorites ? "fav":""}`}>
                   <i className="fa-regular fa-heart"></i>
                 </button>
                 <button>
                   <i className="fa-solid fa-cart-shopping"></i>
                 </button>
               </div>
-              <Link to={`/product_details/${product.id}`} className = "more-info">More Info</Link>
+              <Link to={`/product_details/${product.id}`} className="more-info">
+                More Info
+              </Link>
             </div>
           );
         })}

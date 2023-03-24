@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import "./productDetails.scss";
 
 function ProductDetails() {
@@ -10,8 +11,8 @@ function ProductDetails() {
   const [selected, setSelected] = useState(null);
   let [quantity, setQuantity] = useState(0);
   const { id } = useParams();
-
-  const getProductData = async () => {
+  //
+  const getProductData = useCallback(async () => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.get(`/api/products/${id}`, {
@@ -21,29 +22,79 @@ function ProductDetails() {
           Authorization: token ?? "",
         },
       });
-      console.log(response.data.data);
+      console.log(response.data.data)
       setProductData(response.data.data);
       setSelectedImage(response.data.data.image);
       setProductImages(response.data.data.images);
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [id]);
 
+  //
   useEffect(() => {
     getProductData();
-  }, [id]);
+  }, [getProductData]);
 
   const handleImage = (image, index) => {
     setSelectedImage(image);
     setSelected(index);
   };
-
+  //
   const increaseQuantity = () => {
     setQuantity(quantity++);
   };
   const decreaseQuantity = () => {
     setQuantity(quantity--);
+  };
+  //
+  const addToFavorite = async (product_id) => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.post(
+        "/api/favorites",
+        { product_id },
+        {
+          headers: {
+            lang: "en",
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+      
+      toast.success(response.data.message, {
+        position: "bottom-right",
+      });
+    } catch (error) {
+      toast.error("failed to add product to favorites", {
+        position: "bottom-left",
+      });
+    }
+  };
+  //
+  const addToCart = async (product_id) => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.post(
+        "/api/carts",
+        { product_id },
+        {
+          headers: {
+            lang: "en",
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+      toast.success(response.data.message, {
+        position: "bottom-right",
+      });
+    } catch (error) {
+      toast.error("failed to add to cart", {
+        position: "bottom-left",
+      });
+    }
   };
 
   return (
@@ -85,8 +136,20 @@ function ProductDetails() {
             </button>
           </div>
           <div className="btn-wrapper">
-            <button className="btn-addToFavorite">ADD TO FAVORITE</button>
-            <button className="btn-addToCart">ADD TO CART</button>
+            <button
+              className="btn-addToFavorite"
+              onClick={() => addToFavorite(productData.id)}
+            >
+              ADD TO FAVORITE
+            </button>
+            <button
+              className="btn-addToCart"
+              onClick={() => {
+                addToCart(productData.id);
+              }}
+            >
+              ADD TO CART
+            </button>
           </div>
         </div>
       </div>
