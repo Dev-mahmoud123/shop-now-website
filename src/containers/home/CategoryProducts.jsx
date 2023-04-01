@@ -39,7 +39,7 @@ function CategoryProducts() {
               <div className="product-price">
                 <span className="current-price">{product.price}LE</span>
                 {product.discount > 0 && (
-                  <span className="old-price">{product.old_price}LE</span>
+                  <span className="old-price">{product.old_price}EGP</span>
                 )}
               </div>
               <div className="action-buttons">

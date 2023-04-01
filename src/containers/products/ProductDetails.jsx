@@ -42,10 +42,10 @@ function ProductDetails() {
   };
   //
   const increaseQuantity = () => {
-    setQuantity(quantity++);
+    setQuantity(quantity+1);
   };
   const decreaseQuantity = () => {
-    setQuantity(quantity--);
+    setQuantity(Math.max(quantity-1 , 1));
   };
   //
   const addToFavorite = async (product_id) => {
