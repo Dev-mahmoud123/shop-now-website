@@ -25,12 +25,11 @@ function Favorites() {
     }
   };
   //
-  const deleteProduct = async (product_id) => {
+  const deleteProduct = async (id) => {
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.post(
-        "/api/favorites",
-        { product_id },
+      const response = await axios.delete(
+        `/api/favorites/${id}`,
         {
           headers: {
             lang: "en",
@@ -39,33 +38,9 @@ function Favorites() {
           },
         }
       );
-
-      const deleteProduct = async (product_id) => {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await axios.post(
-        "/api/favorites",
-        { product_id },
-        {
-          headers: {
-            lang: "en",
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
-
       toast.success(response.data.message, {
         position: "bottom-right",
       });
-      getFavoriteProducts();
-    } catch (error) {
-      toast.error("failed to delete product from favorites", {
-        position: "bottom-left",
-      });
-    }
-  };
-
       getFavoriteProducts();
     } catch (error) {
       toast.error("failed to delete product from favorites", {
@@ -93,7 +68,7 @@ function Favorites() {
                   <span className="old-price">{fav.product.old_price}LE</span>
                 )}
               </div>
-              <button onClick={() => deleteProduct(fav.product.id)}>
+              <button onClick={() => deleteProduct(fav.id)}>
                 <i className="fa-regular fa-trash-can"></i>
               </button>
               <Link
