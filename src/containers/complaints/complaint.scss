@@ -1,0 +1,58 @@
+.complaint_page {
+      background-color: #e8e8e8;
+      padding: 20px;
+      .container {
+            background-color: #f2f2f2;
+            width: 500px;
+            padding: 10px 15px;
+            border-radius: 8px;
+
+            form {
+                  display: flex;
+                  flex-direction: column;
+
+                  label {
+                        margin-bottom: 10px;
+                  }
+                  input , textarea {
+                        outline: none;
+                        border: none;
+                        padding: 8px;
+                        margin-bottom: 5px;
+                        border-radius: 8px;
+                  }
+                  textarea {
+                        resize: none;
+                        height: 150px;
+                  }
+                  button {
+                        outline: none;
+                        border: none;
+                        border-radius: 8px;
+                        background-color: #ff6384;
+                        padding: 8px;
+                        margin-top: 10px;
+                        font-size: 18px;
+                        font-weight: 500;
+                        color: white;
+                        text-transform: uppercase;
+                  }
+                  input:focus, textarea:focus {
+                        outline:none;
+                        box-shadow: 0 0 5px #ff6384;
+                        transform: scaleX(1.04);
+                        transition: all 0.3s ease-in-out;
+                  }
+                  button:hover {
+                        transform: scaleX(1.04);
+                        transition: all 0.3s ease-in-out;
+                  }
+            }
+      }
+}
+
+@media screen and (max-width: 676px) {
+      .complaint_page .container {
+            width: 100%;
+      }
+}
