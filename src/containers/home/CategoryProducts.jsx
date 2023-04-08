@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "../products/product.scss";
 
@@ -7,7 +7,7 @@ function CategoryProducts() {
   const { id } = useParams();
   const [products, setProducts] = useState([]);
 
-  const getCategoryProducts = async () => {
+  const getCategoryProducts =useCallback( async () => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.get(`/api/products?category_id=${id}`, {
@@ -22,11 +22,11 @@ function CategoryProducts() {
     } catch (error) {
       console.log(error);
     }
-  };
+  },[id]);
 
   useEffect(() => {
     getCategoryProducts();
-  }, [id]);
+  }, [getCategoryProducts]);
   return (
     <section className="products-list">
       <div className="container">
