@@ -4,26 +4,32 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./favorite.scss";
 
+
 function Favorites() {
   const [favorites, setFavorites] = useState([]);
   const [total, setTotal] = useState(0);
 
-  const getFavoriteProducts = async () => {
+  const getFavoriteProducts = async()=> {
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.get("/api/favorites", {
-        headers: {
-          lang: "en",
-          "Content-Type": "application/json",
-          Authorization: token ?? "",
-        },
-      });
+      const response = await axios.get(
+        "/api/favorites",
+        {
+          headers: {
+            lang: "en",
+            "Content-Type": "application/json", 
+            Authorization: token,
+          },
+        }
+      );
       setFavorites(response.data.data.data);
-      setTotal(response.data.data.total);
-    } catch (error) {
-      console.log(error);
+      console.log(response.data.data)
+      setTotal(response.data.data.total)
+    }catch(error){
+      console.log(error)
     }
-  };
+  }
+    
   //
   const deleteProduct = async (id) => {
     const token = localStorage.getItem("token");
@@ -38,6 +44,7 @@ function Favorites() {
           },
         }
       );
+
       toast.success(response.data.message, {
         position: "bottom-right",
       });
