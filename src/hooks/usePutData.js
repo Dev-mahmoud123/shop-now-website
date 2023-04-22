@@ -1,4 +1,5 @@
-import {baseURL} from "../api/baseURL"
+import axios from "axios";
+
 
 const usePutData = async (url , formData)=> {
      const config= {
@@ -8,7 +9,7 @@ const usePutData = async (url , formData)=> {
             Authorization: `${localStorage.getItem("token")}`,   
          }
       }
-      const response = await baseURL.put(url , formData , config);
+      const response = await axios.put(url , formData , config);
       return response;
 }
 

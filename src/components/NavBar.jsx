@@ -1,8 +1,12 @@
+import { useSelector } from "react-redux";
 import logo from "../../src/images/shop-logo.png";
 import "./navBar.scss";
 import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
+  const user = useSelector((state) => state.user);
+  console.log(user.isLogged);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
@@ -53,9 +57,20 @@ const NavBar = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/auth">
-                Login
-              </a>
+              {user.isLogged ? (
+                <a className="nav-link" href="/user-profile">
+                  <img
+                    className="user_image"
+                    src={user.users.data.data.image}
+                    alt="user-img"
+                  />
+                  <span>{user.users.data.data.name.substring(0,3)}</span>
+                </a>
+              ) : (
+                <a className="nav-link" href="/auth">
+                  Login
+                </a>
+              )}
             </li>
           </ul>
         </div>

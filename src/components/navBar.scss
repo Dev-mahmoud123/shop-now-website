@@ -35,6 +35,24 @@
                   &:hover::before{
                       width: calc(100% - 16px);    
                   }
+                  .user_image {
+                        width: 25px;
+                        height: 25px;
+                        border-radius: 50%;
+                  }
+                 }
+            }
+            li:nth-last-child(1){
+                  display: flex;
+                 width: 80px;
+
+                 span {
+                      font-size: 14px;
+                      margin-left: 2px;
+                      font-weight: 600;
+                 }
+                 &:hover::before {
+                  width: 0;
                  }
             }
       }

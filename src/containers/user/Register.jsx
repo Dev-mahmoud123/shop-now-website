@@ -1,8 +1,8 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
 import "./register.scss";
+import { useDispatch } from "react-redux";
+import { createNewUser } from "../../redux/actions/auth_action";
 
 function Register(props) {
   //
@@ -30,38 +30,45 @@ function Register(props) {
     setPassword(e.target.value);
   };
   //
-  const handleSubmit = async (event) => {
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const response = await axios.post(
+  //       "/api/register",
+  //       {
+  //         name,
+  //         phone,
+  //         email,
+  //         password,
+  //       },
+  //       {
+  //         headers: {
+  //           lang: "en",
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     toast.success(response.data.message, {
+  //       position: "bottom-right",
+  //     });
+  //     if (rememberMe) {
+  //       localStorage.setItem("rememberMe", true);
+  //     }
+  //     localStorage.setItem("token", response.data.data.token);
+  //     navigate("/");
+  //   } catch (error) {
+  //     toast.error(error.response.data.message, {
+  //       position: "bottom-left",
+  //     });
+  //   }
+  // };
+
+ const dispatch = useDispatch();
+ const formData = {name , phone , email, password};
+  const handleSubmit = (event)=> {
     event.preventDefault();
-    try {
-      const response = await axios.post(
-        "/api/register",
-        {
-          name,
-          phone,
-          email,
-          password,
-        },
-        {
-          headers: {
-            lang: "en",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      toast.success(response.data.message, {
-        position: "bottom-right",
-      });
-      if (rememberMe) {
-        localStorage.setItem("rememberMe", true);
-      }
-      localStorage.setItem("token", response.data.data.token);
-      navigate("/");
-    } catch (error) {
-      toast.error(error.response.data.message, {
-        position: "bottom-left",
-      });
-    }
-  };
+    dispatch(createNewUser(formData)).then(navigate('/'));
+  }
   //
   return (
     <div className="register">

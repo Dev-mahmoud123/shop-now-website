@@ -1,4 +1,5 @@
-import baseURL from "../api/baseURL";
+import axios from "axios";
+
 
 const useDeleteData = async (url) => {
   const config = {
@@ -8,7 +9,7 @@ const useDeleteData = async (url) => {
       Authorization: `${localStorage.getItem("token")}`,
     },
   };
-  const response = await baseURL.delete(url, config);
+  const response = await axios.delete(url, config);
   return response;
 };
 

@@ -1,6 +1,7 @@
-import {baseURL} from "../api/baseURL"
+import axios from "axios";
 
-const usePostDataWithToken = async (url , formData)=> {
+
+export const usePostDataWithToken = async (url , formData)=> {
      const config= {
          headers: {
             lang: "en",
@@ -8,18 +9,17 @@ const usePostDataWithToken = async (url , formData)=> {
             Authorization: `${localStorage.getItem("token")}`,   
          }
       }
-      const response = await baseURL.post(url , formData , config);
+      const response = await axios.post(url , formData , config);
       return response;
 }
-const usePostData = async (url , formData)=> {
+export const usePostData = async (url , formData)=> {
      const config= {
          headers: {
             lang: "en",
             "Content-Type": "application/json",   
          }
       }
-      const response = await baseURL.post(url , formData , config);
+      const response = await axios.post(url , formData , config);
       return response;
 }
 
-export {usePostData , usePostDataWithToken}

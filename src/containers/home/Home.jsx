@@ -1,6 +1,7 @@
 import Banner from "./Banner";
 import Categories from "./Categories";
 
+
 function Home() {
 
   return <section className="home">

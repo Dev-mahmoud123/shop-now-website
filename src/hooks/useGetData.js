@@ -1,4 +1,5 @@
-import baseURL from "../api/baseURL";
+import axios from "axios";
+
 
 const useGetData = async (url) => {
   const config = {
@@ -9,7 +10,7 @@ const useGetData = async (url) => {
     },
   };
 
-  const response = await baseURL.get(url, config);
+  const response = await axios.get(url, config);
   return response;
 };
 

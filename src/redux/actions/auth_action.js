@@ -1,5 +1,5 @@
 import useGetData from "../../hooks/useGetData";
-import { usePostData } from "/../src/hooks/usePostData";
+import { usePostData } from "../../hooks/usePostData";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const createNewUser = createAsyncThunk(
@@ -7,6 +7,7 @@ export const createNewUser = createAsyncThunk(
   async (formData) => {
     try {
       const response = await usePostData("/api/register", formData);
+      localStorage.setItem("token", response.data.data.token);
       return response;
     } catch (error) {
       throw error.response;
@@ -19,6 +20,8 @@ export const loginUser = createAsyncThunk(
   async (formData) => {
     try {
       const response = await usePostData("/api/login", formData);
+      console.log(response);
+      localStorage.setItem("token", response.data.data.token);
       return response;
     } catch (error) {
       throw error.response;
@@ -36,5 +39,3 @@ export const getLoggedUser = createAsyncThunk(
     }
   }
 );
-
-

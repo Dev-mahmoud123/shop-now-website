@@ -1,8 +1,8 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import "./login.scss";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../redux/actions/auth_action";
 
 function Login(props) {
   //
@@ -22,38 +22,44 @@ function Login(props) {
   const handlePassword = (e) => {
     setPassword(e.target.value);
   };
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const response = await axios.post(
+  //       "api/login",
+  //       {
+  //         email,
+  //         password,
+  //       },
+  //       {
+  //         headers: {
+  //           lang: "en",
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     toast.success(response.data.message, {
+  //       position: "bottom-left",
+  //     });
+  //     if (rememberMe) {
+  //       localStorage.setItem("rememberMe", true);
+  //     }
+  //     localStorage.setItem("token", response.data.data.token);
+  //     navigate("/");
+  //   } catch (error) {
+  //     toast.error(error.response.data.message, {
+  //       position: "bottom-right",
+  //     });
+  //   }
+  // };
   //
-  const handleSubmit = async (event) => {
+  const dispatch = useDispatch();
+  const formData = { email, password };
+  const handleSubmit = (event) => {
     event.preventDefault();
-    try {
-      const response = await axios.post(
-        "api/login",
-        {
-          email,
-          password,
-        },
-        {
-          headers: {
-            lang: "en",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      toast.success(response.data.message, {
-        position: "bottom-left",
-      });
-      if (rememberMe) {
-        localStorage.setItem("rememberMe", true);
-      }
-      localStorage.setItem("token", response.data.data.token); 
-      navigate("/");
-    } catch (error) {
-      toast.error(error.response.data.message, {
-        position: "bottom-right",
-      });
-    }
+    dispatch(loginUser(formData)).then(navigate("/"));
   };
-  //
   return (
     <div className="login">
       <h3>Login</h3>
