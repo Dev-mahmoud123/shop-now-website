@@ -19,7 +19,7 @@ export const useGetDataWithoutHeaders = async (url) => {
   const response = await axios.get(url);
   return response;
 };
-//
+
 export const useGetDataWithLanguage = async (url) => {
   const config = {
     headers: {
