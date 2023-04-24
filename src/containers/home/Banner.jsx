@@ -2,31 +2,30 @@ import { useState, useEffect, useMemo } from "react";
 import React from "react";
 import axios from "axios";
 import "./banner.scss";
-// import { useDispatch, useSelector } from "react-redux";
-// import { getBanner } from "../../redux/actions/home_action";
+import { getBanner } from "../../redux/actions/home_action";
+import { useDispatch, useSelector } from "react-redux";
 
 function Banner() {
-  const [banner, setBanner] = useState([]);
+  // const [banner, setBanner] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const getBanner = async () => {
-    try {
-      const response = await axios.get("/api/banners");
-      setBanner(response.data.data);
-    } catch (error) {
-      console.log(error)
-    }
-  };
+  // const getBanner = async () => {
+  //   try {
+  //     const response = await axios.get("/api/banners");
+  //     setBanner(response.data.data);
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // };
 
-  // const dispatch = useDispatch();
-  // const bannerState = useSelector((state) => state.home);
-  // // console.log(bannerState.banners.data.data);
-  // const bannerData = bannerState.banners.data.data;
-  // console.log(bannerData);
+  const dispatch = useDispatch();
+  const bannerState = useSelector((state) => state.home.banners);
+  const banner = useMemo(() => bannerState?.data?.data || [], [bannerState]);
+  console.log(banner);
 
   useEffect(() => {
-  getBanner()
-  }, []);
+    dispatch(getBanner());
+  }, [dispatch]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -38,6 +37,10 @@ function Banner() {
   const activeBanner = useMemo(() => {
     return banner.length > 0 ? banner[activeIndex] : null;
   }, [activeIndex, banner]);
+
+  const imageSource = useMemo(() => {
+    return activeBanner ? activeBanner.image : "";
+  }, [activeBanner]);
 
   const handleSlide = (index) => {
     setActiveIndex(index);
@@ -64,7 +67,11 @@ function Banner() {
       <div className="carousel-inner">
         {activeBanner && (
           <div className="carousel-item active">
-            <img src={activeBanner.image} className="d-block w-100" alt="slider-imag" />
+            <img
+              src={imageSource}
+              className="d-block w-100"
+              alt="slider-imag"
+            />
           </div>
         )}
       </div>
@@ -74,9 +81,7 @@ function Banner() {
         data-bs-target="#carouselExampleIndicators"
         data-bs-slide="prev"
         onClick={() =>
-          handleSlide(
-            activeIndex === 0 ? banner.length - 1 : activeIndex - 1
-          )
+          handleSlide(activeIndex === 0 ? banner.length - 1 : activeIndex - 1)
         }
       >
         <span className="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -88,9 +93,7 @@ function Banner() {
         data-bs-target="#carouselExampleIndicators"
         data-bs-slide="next"
         onClick={() =>
-          handleSlide(
-            activeIndex === banner.length - 1 ? 0 : activeIndex + 1
-          )
+          handleSlide(activeIndex === banner.length - 1 ? 0 : activeIndex + 1)
         }
       >
         <span className="carousel-control-next-icon" aria-hidden="true"></span>

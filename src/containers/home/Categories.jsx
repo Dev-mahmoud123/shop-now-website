@@ -5,27 +5,34 @@ import "./categories.scss";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategory } from "../../redux/actions/home_action";
 
 
 function Categories() {
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
 
-  const getCategories = async () => {
-    try {
-      const response = await axios.get("/api/categories", {
-        headers: {
-          lang: "en",
-        },
-      });
-      setCategories(response.data.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getCategories = async () => {
+  //   try {
+  //     const response = await axios.get("/api/categories", {
+  //       headers: {
+  //         lang: "en",
+  //       },
+  //     });
+  //     setCategories(response.data.data.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+   const dispatch = useDispatch();
+   const categoriesData = useSelector((state)=> state.home.categories);
+   const categories = categoriesData?.data?.data?.data || [];
+
 
   useEffect(() => {
-    getCategories();
-  }, []);
+    dispatch(getCategory());
+  }, [dispatch]);
 
   const responsive = {
     desktop: {
@@ -49,21 +56,21 @@ function Categories() {
     <div className="categories">
       <h3>Categories</h3>
       <div className="container">
-        <Carousel className="carousel" responsive={responsive}>
-          {categories.map((category) => {
-            return (
-              <div
-                className="card"
-                key={category.id}
-              >
-               <Link to = {`/category_products/${category.id}`}>
-                 <img src={category.image} alt={category.name} />
-                 <p>{category.name}</p>
-               </Link>
-              </div>
-            );
-          })}
-        </Carousel>
+      <Carousel className="carousel" responsive={responsive}>
+      {categories.map((category) => {
+        return (
+          <div
+            className="card"
+            key={category.id}
+          >
+           <Link to = {`/category_products/${category.id}`}>
+             <img src={category.image} alt={category.name} />
+             <p>{category.name}</p>
+           </Link>
+          </div>
+        );
+      })}
+    </Carousel>
       </div>
     </div>
   );

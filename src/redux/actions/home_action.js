@@ -13,7 +13,7 @@ export const getBanner = createAsyncThunk("home/getBanner", async () => {
   }
 });
 
-export const getCategories = createAsyncThunk(
+export const getCategory = createAsyncThunk(
   "home/getCategories",
   async () => {
     try {
