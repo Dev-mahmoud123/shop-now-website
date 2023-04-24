@@ -1,4 +1,4 @@
-import useGetData from "../../hooks/useGetData";
+import {useGetData} from "../../hooks/useGetData";
 import { usePostData } from "../../hooks/usePostData";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -20,7 +20,6 @@ export const loginUser = createAsyncThunk(
   async (formData) => {
     try {
       const response = await usePostData("/api/login", formData);
-      console.log(response);
       localStorage.setItem("token", response.data.data.token);
       return response;
     } catch (error) {

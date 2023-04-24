@@ -9,7 +9,7 @@ const initialState = {
   users: [],
   isLoading: true,
   error: null,
-  isLogged: false
+  isLogged: false,
 };
 
 const userSlice = createSlice({
@@ -25,7 +25,7 @@ const userSlice = createSlice({
     builder.addCase(createNewUser.fulfilled, (state, action) => {
       state.isLoading = false;
       state.users.push(action.payload);
-      state.isLogged = true
+      state.isLogged = true;
     });
     builder.addCase(createNewUser.rejected, (state, action) => {
       state.isLoading = false;
