@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import React from "react";
-import axios from "axios";
+// import axios from "axios";
 import "./banner.scss";
 import { getBanner } from "../../redux/actions/home_action";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,7 +37,7 @@ function Banner() {
   const activeBanner = useMemo(() => {
     return banner.length > 0 ? banner[activeIndex] : null;
   }, [activeIndex, banner]);
-
+  //
   const imageSource = useMemo(() => {
     return activeBanner ? activeBanner.image : "";
   }, [activeBanner]);

@@ -1,5 +1,5 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
+// import axios from "axios";
+import {useEffect } from "react";
 import React from "react";
 import "./categories.scss";
 import Carousel from "react-multi-carousel";
@@ -13,7 +13,7 @@ function Categories() {
   // const [categories, setCategories] = useState([]);
 
   // const getCategories = async () => {
-  //   try {
+  //   try { 
   //     const response = await axios.get("/api/categories", {
   //       headers: {
   //         lang: "en",
