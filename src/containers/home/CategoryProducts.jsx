@@ -2,35 +2,48 @@ import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "../products/product.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductsByCategory } from "../../redux/actions/home_action";
+
 
 function CategoryProducts() {
   const { id } = useParams();
-  const [products, setProducts] = useState([]);
+   console.log(id)
+  // const [products, setProducts] = useState([]);
 
-  const getCategoryProducts =useCallback( async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await axios.get(`/api/products?category_id=${id}`, {
-        headers: {
-          lang: "en",
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
-      setProducts(response.data.data.data);
-      console.log(response.data.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  },[id]);
+  // const getCategoryProducts =useCallback( async () => {
+  //   const token = localStorage.getItem("token");
+  //   try {
+  //     const response = await axios.get(`/api/products?category_id=${id}`, {
+  //       headers: {
+  //         lang: "en",
+  //         "Content-Type": "application/json",
+  //         Authorization: token,
+  //       },
+  //     });
+  //     setProducts(response.data.data.data);
+  //     console.log(response.data.data.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // },[id]);
+
+  const dispatch = useDispatch();
+  const productState = useSelector((state)=> state.home.categoryProducts);
+  console.log(productState)
+  const products = productState?.data?.data?.data || [];
+  console.log(products);
 
   useEffect(() => {
-    getCategoryProducts();
-  }, [getCategoryProducts]);
+    dispatch(getProductsByCategory(id));
+      
+    
+  }, [dispatch,id]);
   return (
     <section className="products-list">
       <div className="container">
         {products.map((product) => {
+          console.log(product)
           return (
             <div className="card" key={product.id}>
               {product.discount > 0 && <span>discount</span>}
