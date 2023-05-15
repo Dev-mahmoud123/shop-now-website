@@ -30,20 +30,15 @@ function CategoryProducts() {
 
   const dispatch = useDispatch();
   const productState = useSelector((state)=> state.home.categoryProducts);
-  console.log(productState)
   const products = productState?.data?.data?.data || [];
-  console.log(products);
 
   useEffect(() => {
     dispatch(getProductsByCategory(id));
-      
-    
   }, [dispatch,id]);
   return (
     <section className="products-list">
       <div className="container">
         {products.map((product) => {
-          console.log(product)
           return (
             <div className="card" key={product.id}>
               {product.discount > 0 && <span>discount</span>}
