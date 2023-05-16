@@ -158,11 +158,11 @@ function ProductDetails() {
           className="btn-addToCart"
           onClick={() => {
             // addToCart(productData.id);
-            dispatch(addToCart(productData.id))
+            dispatch(addToCart(productData.id));
           }}
         >
-          ADD TO CART
-        </button>¬
+          ADD TO CART 
+        </button>
       </div>
     </div>
   </div>
