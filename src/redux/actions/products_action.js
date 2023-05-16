@@ -3,6 +3,7 @@ import { useGetData } from "../../hooks/useGetData";
 import { usePostDataWithToken } from "../../hooks/usePostData";
 import { toast } from "react-toastify";
 
+// function to get product details from api
 export const getProductData = createAsyncThunk(
   "product/getProductData",
   async (id) => {
@@ -15,18 +16,34 @@ export const getProductData = createAsyncThunk(
   }
 );
 
+// function to add product to favorite products
 export const addToFavorite = createAsyncThunk(
   "product/addToFavorite",
   async (product_id) => {
     try {
-      const response = await usePostDataWithToken(`/api/favorites`, {product_id});
-      console.log(response)
+      const response = await usePostDataWithToken(`/api/favorites`, {
+        product_id,
+      });
+      console.log(response);
       toast.success(response.data.message, {
-                  position: "bottom-right",
-                });
+        position: "bottom-right",
+      });
       return response;
     } catch (error) {
-      toast.error(error.response.data.message)
+      toast.error(error.response.data.message);
+      throw error.response;
+    }
+  }
+);
+
+// function to add product to cart
+export const addToCart = createAsyncThunk(
+  "product/addToCart",
+  async (product_id) => {
+    try {
+      const response = await usePostDataWithToken("/api/carts", { product_id });
+      return response;
+    } catch (error) {
       throw error.response;
     }
   }

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./productDetails.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { addToFavorite, getProductData } from "../../redux/actions/products_action";
+import { addToCart, addToFavorite, getProductData } from "../../redux/actions/products_action";
 import { decreaseQuantity, increaseQuantity, setSelectedImage, setSelectedIndex } from "../../redux/reducers/product_reduce";
 
 function ProductDetails() {
@@ -158,10 +158,11 @@ function ProductDetails() {
           className="btn-addToCart"
           onClick={() => {
             // addToCart(productData.id);
+            dispatch(addToCart(productData.id))
           }}
         >
           ADD TO CART
-        </button>
+        </button>¬
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addToFavorite, getProductData } from "../actions/products_action";
+import { addToCart, addToFavorite, getProductData } from "../actions/products_action";
 
 
 const initialState = {
@@ -9,7 +9,8 @@ const initialState = {
   selectedImage: null,
   selectedIndex: null,
   quantity: 1,
-  favorites: []
+  favorites: [],
+  carts: []
 };
 
 const productSlice = createSlice({
@@ -32,6 +33,7 @@ const productSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // use get product details action
     builder.addCase(getProductData.pending, (state) => {
       state.isLoading = true;
     });
@@ -43,7 +45,7 @@ const productSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     });
-    // 
+    // use add product to favorites action
     builder.addCase(addToFavorite.pending, (state)=> {
       state.isLoading = true;
     })
@@ -52,6 +54,18 @@ const productSlice = createSlice({
       state.favoriteStatus.push(action.payload);
     })
     builder.addCase(addToFavorite.rejected , (state , action)=> {
+      state.isLoading = false;
+      state.error = action.payload;
+    })
+    // use add product to cart action
+    builder.addCase(addToCart.pending , (state)=> {
+      state.isLoading = true;
+    })
+    builder.addCase(addToCart.fulfilled , (state,action)=> {
+      state.isLoading = false;
+      state.carts.push(action.payload);
+    })
+    builder.addCase(addToCart.rejected , (state,action)=> {
       state.isLoading = false;
       state.error = action.payload;
     })
