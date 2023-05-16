@@ -8,7 +8,7 @@ const initialState = {
   error: null,
   selectedImage: null,
   selectedIndex: null,
-  quantity: 0,
+  quantity: 1,
   favorites: []
 };
 

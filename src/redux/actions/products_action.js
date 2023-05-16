@@ -26,6 +26,7 @@ export const addToFavorite = createAsyncThunk(
                 });
       return response;
     } catch (error) {
+      toast.error(error.response.data.message)
       throw error.response;
     }
   }
