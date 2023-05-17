@@ -26,7 +26,6 @@ const productsSelect = useSelector((state)=>state.product.allProducts);
 const products = productsSelect?.data?.data?.products;
 
 
-
   useEffect(() => {
     dispatch(getAllProducts())
   }, [dispatch]);
