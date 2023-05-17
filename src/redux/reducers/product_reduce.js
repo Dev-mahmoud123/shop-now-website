@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addToCart, addToFavorite, getProductData } from "../actions/products_action";
+import { addToCart, addToFavorite, getAllProducts, getProductData } from "../actions/products_action";
+import { act } from "react-dom/test-utils";
 
 
 const initialState = {
@@ -10,7 +11,10 @@ const initialState = {
   selectedIndex: null,
   quantity: 1,
   favorites: [],
-  carts: []
+  carts: [],
+  inCart:false,
+  inFavorite: false,
+  allProducts:{}
 };
 
 const productSlice = createSlice({
@@ -48,24 +52,42 @@ const productSlice = createSlice({
     // use add product to favorites action
     builder.addCase(addToFavorite.pending, (state)=> {
       state.isLoading = true;
+      state.inFavorite = false;
     })
     builder.addCase(addToFavorite.fulfilled , (state,action)=> {
       state.isLoading = false;
       state.favoriteStatus.push(action.payload);
+      state.inFavorite = true;
     })
     builder.addCase(addToFavorite.rejected , (state , action)=> {
       state.isLoading = false;
       state.error = action.payload;
+      state.inFavorite = false;
     })
     // use add product to cart action
     builder.addCase(addToCart.pending , (state)=> {
       state.isLoading = true;
+      state.inCart = false;
     })
     builder.addCase(addToCart.fulfilled , (state,action)=> {
       state.isLoading = false;
       state.carts.push(action.payload);
+      state.inCart = true;
     })
     builder.addCase(addToCart.rejected , (state,action)=> {
+      state.isLoading = false;
+      state.error = action.payload;
+      state.inCart = false;
+    })
+    // use get all products 
+    builder.addCase(getAllProducts.pending , (state)=>{
+      state.isLoading = true;
+    })
+    builder.addCase(getAllProducts.fulfilled, (state,action)=>{
+      state.isLoading = false;
+      state.allProducts = action.payload;
+    })
+    builder.addCase(getAllProducts.rejected, (state,action)=> {
       state.isLoading = false;
       state.error = action.payload;
     })
@@ -79,5 +101,6 @@ export const {
   increaseQuantity,
   decreaseQuantity,
   addProductToFavorite,
+  getProducts
 } = productSlice.actions;
 export default productSlice.reducer;
