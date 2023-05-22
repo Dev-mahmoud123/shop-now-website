@@ -149,6 +149,7 @@ function ProductDetails() {
           onClick={() =>{
             //  addToFavorite(productData.id)
             dispatch(addToFavorite(productData.id))
+            console.log(productDetails.product.inFavorite)
           }
             }
         >
@@ -159,6 +160,8 @@ function ProductDetails() {
           onClick={() => {
             // addToCart(productData.id);
             dispatch(addToCart(productData.id));
+            console.log(productDetails.product.inCart)
+
           }}
         >
           ADD TO CART 

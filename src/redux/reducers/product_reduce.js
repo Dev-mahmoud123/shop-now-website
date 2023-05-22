@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addToCart, addToFavorite, getAllProducts, getProductData } from "../actions/products_action";
-import { act } from "react-dom/test-utils";
 
 
 const initialState = {
@@ -56,7 +55,7 @@ const productSlice = createSlice({
     })
     builder.addCase(addToFavorite.fulfilled , (state,action)=> {
       state.isLoading = false;
-      state.favoriteStatus.push(action.payload);
+      state.favorites.push(action.payload);
       state.inFavorite = true;
     })
     builder.addCase(addToFavorite.rejected , (state , action)=> {
