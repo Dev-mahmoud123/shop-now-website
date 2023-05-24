@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./complaint.scss";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { sendCompliant } from "../../redux/actions/complaint_action";
 
 function Complaints() {
   const [name, setName] = useState("");
@@ -22,34 +24,41 @@ function Complaints() {
     setMessage(event.target.value);
   };
 
-  const handleSubmit = async (event) => {
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const response = await axios.post(
+  //       "/api/complaints",
+  //       {
+  //         name,
+  //         phone,
+  //         email,
+  //         message,
+  //       },
+  //       {
+  //         headers: {
+  //           lang: "en",
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     console.log(response.data.data)
+  //     toast.success(response.data.message, {
+  //       position: "bottom-left",
+  //     });
+  //   } catch (error) {
+  //     toast.error("error to send message", {
+  //       position: "bottom-right",
+  //     });
+  //   }
+  // };
+
+  const dispatch =useDispatch();
+  const formData = {name ,phone , email , message};
+  const handleSubmit = (event)=> {
     event.preventDefault();
-    try {
-      const response = await axios.post(
-        "/api/complaints",
-        {
-          name,
-          phone,
-          email,
-          message,
-        },
-        {
-          headers: {
-            lang: "en",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log(response.data.data)
-      toast.success(response.data.message, {
-        position: "bottom-left",
-      });
-    } catch (error) {
-      toast.error("error to send message", {
-        position: "bottom-right",
-      });
-    }
-  };
+    dispatch(sendCompliant(formData));
+  }
   return (
     <section className="complaint_page">
       <div className="container">
