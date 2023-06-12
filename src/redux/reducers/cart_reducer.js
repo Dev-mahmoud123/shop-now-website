@@ -1,8 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { deleteCartProducts, getCartProducts } from "../actions/cart_action";
+import {
+  addToCart,
+  deleteCartProducts,
+  getCartProducts,
+} from "../actions/cart_action";
 
 const initialState = {
-  cartProducts: {},
+  cartProducts: [],
   totalPrice: 0,
   error: null,
   isLoading: true,
@@ -21,26 +25,31 @@ const cartSlice = createSlice({
     increaseQuantity: (state, action) => {
       const productId = action.payload;
       const cartItems = state.cartProducts.data.data.cart_items;
-      const itemIndex = cartItems.findIndex((item) => item.id === productId);
-
-      if (itemIndex !== -1) {
-        cartItems[itemIndex].quantity += 1;
-        
-      }
-
+      const cartItem = cartItems.find((item) => item.id === productId);
+      cartItem.quantity += 1;
     },
     decreaseQuantity: (state, action) => {
       const productId = action.payload;
       const cartItems = state.cartProducts.data.data.cart_items;
-      console.log(cartItems);
-      const itemIndex = cartItems.findIndex((item) => item.id === productId);
-
-      if (itemIndex !== -1 && cartItems[itemIndex].quantity > 1) {
-        cartItems[itemIndex].quantity -= 1;
+      const cartItem = cartItems.find((item) => item.id === productId);
+      if (cartItem.quantity > 1) {
+        cartItem.quantity -= 1;
       }
     },
   },
   extraReducers: (builder) => {
+    // use add product to cart action
+    builder.addCase(addToCart.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(addToCart.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.cartProducts.push(action.payload);
+    });
+    builder.addCase(addToCart.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
     builder
       .addCase(getCartProducts.pending, (state) => {
         state.isLoading = true;
@@ -48,18 +57,18 @@ const cartSlice = createSlice({
       .addCase(getCartProducts.fulfilled, (state, action) => {
         state.isLoading = false;
         state.cartProducts = action.payload;
-        const cartItems = state.cartProducts?.data?.data?.cart_items;
         let amount = 0;
-        let quantity = 0;
-        console.log(cartItems);
+        let quantity = 0; 
+        console.log(state.cartProducts?.data)
+        const cartItems = state.cartProducts?.data?.data?.cart_items;
         cartItems.forEach((item) => {
-          quantity += item.quantity ;
-          console.log(quantity)
+          quantity += item.quantity;
+          console.log(quantity);
           amount += item.product.price * item.quantity;
-          console.log(item)
         });
-
+  
         state.cartTotalAmount = amount;
+        console.log(state.cartTotalAmount);
         state.cartTotalQuantity = quantity;
       })
       .addCase(getCartProducts.rejected, (state, action) => {
@@ -83,11 +92,11 @@ const cartSlice = createSlice({
 });
 
 export const {
+  addProductToCart,
   getCartsProducts,
   setDeliveryOption,
   increaseQuantity,
   decreaseQuantity,
   deleteCartProduct,
-  getTotal,
 } = cartSlice.actions;
 export default cartSlice.reducer;

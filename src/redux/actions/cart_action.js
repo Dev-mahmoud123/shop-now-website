@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useGetData } from "../../hooks/useGetData";
-import axios from "axios";
 import useDeleteData from "../../hooks/useDeleteData";
+import { usePostDataWithToken } from "../../hooks/usePostData";
 
 export const getCartProducts = createAsyncThunk(
   "cart/getCartProduct",
@@ -26,6 +26,19 @@ export const deleteCartProducts = createAsyncThunk(
       return response;
     } catch (error) {
       throw error.response.message;
+    }
+  }
+);
+
+// function to add product to cart
+export const addToCart = createAsyncThunk(
+  "product/addToCart",
+  async (product_id) => {
+    try {
+      const response = await usePostDataWithToken("/api/carts", { product_id });
+      return response;
+    } catch (error) {
+      throw error.response;
     }
   }
 );

@@ -3,11 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./product.scss";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addToCart,
-  addToFavorite,
-  getAllProducts,
-} from "../../redux/actions/products_action";
+import { getAllProducts } from "../../redux/actions/products_action";
+import { addToFavorite } from "../../redux/actions/favorite_action";
+import { addToCart } from "../../redux/actions/cart_action";
 
 function Products() {
   // const [products, setProducts] = useState([]);
@@ -27,7 +25,7 @@ function Products() {
 
   const dispatch = useDispatch();
   const productsSelect = useSelector((state) => state.product);
-  console.log(productsSelect.in_favorite)
+  console.log(productsSelect.in_favorite);
   const products = productsSelect?.allProducts?.data?.data?.products || [];
   console.log(products);
 
@@ -53,13 +51,12 @@ function Products() {
               <div className="action-buttons">
                 <button
                   className={`${product.in_favorites ? "fav" : ""}`}
-                  onClick={() => dispatch(addToFavorite(product.id))
-                  }
+                  onClick={() => dispatch(addToFavorite(product.id))}
                 >
                   <i className="fa-regular fa-heart"></i>
                 </button>
                 <button
-                  className={`${productsSelect.in_cart? "cart" : ""}`}
+                  className={`${productsSelect.in_cart ? "cart" : ""}`}
                   onClick={() => dispatch(addToCart(product.id))}
                 >
                   <i className="fa-solid fa-cart-shopping"></i>

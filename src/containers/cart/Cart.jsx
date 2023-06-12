@@ -9,6 +9,7 @@ import {
 } from "../../redux/actions/cart_action";
 import {
   decreaseQuantity,
+  getTotalPrice,
   increaseQuantity,
   setDeliveryOption,
 } from "../../redux/reducers/cart_reducer";
@@ -46,7 +47,6 @@ function Cart() {
   const cart = useSelector((state) => state.cart);
   const cartProducts = cart?.cartProducts?.data?.data?.cart_items || [];
   const deliveryOption = cart?.deliveryOption;
-  const cartPrice = cart?.cartProducts?.data?.data || 0;
 
   useEffect(() => {
     dispatch(getCartProducts());
@@ -102,7 +102,7 @@ function Cart() {
     <section className="cart_products">
       <div className="container">
         <div className="cart_header">
-          <h2>My Cart</h2>
+          <h2>My Cart {cart.cartTotalQuantity}</h2>
           <a href="/products">
             <i className="fa-solid fa-arrow-left-long fa-beat"></i> continue
             shopping

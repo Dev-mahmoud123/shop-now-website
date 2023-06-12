@@ -9,10 +9,6 @@ const initialState = {
   selectedImage: null,
   selectedIndex: null,
   quantity: 1,
-  favorites: [],
-  carts: [],
-  inCart:false,
-  inFavorite: false,
   allProducts:{}
 };
 
@@ -48,36 +44,7 @@ const productSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     });
-    // use add product to favorites action
-    builder.addCase(addToFavorite.pending, (state)=> {
-      state.isLoading = true;
-      state.inFavorite = false;
-    })
-    builder.addCase(addToFavorite.fulfilled , (state,action)=> {
-      state.isLoading = false;
-      state.favorites.push(action.payload);
-      state.inFavorite = true;
-    })
-    builder.addCase(addToFavorite.rejected , (state , action)=> {
-      state.isLoading = false;
-      state.error = action.payload;
-      state.inFavorite = false;
-    })
-    // use add product to cart action
-    builder.addCase(addToCart.pending , (state)=> {
-      state.isLoading = true;
-      state.inCart = false;
-    })
-    builder.addCase(addToCart.fulfilled , (state,action)=> {
-      state.isLoading = false;
-      state.carts.push(action.payload);
-      state.inCart = true;
-    })
-    builder.addCase(addToCart.rejected , (state,action)=> {
-      state.isLoading = false;
-      state.error = action.payload;
-      state.inCart = false;
-    })
+
     // use get all products 
     builder.addCase(getAllProducts.pending , (state)=>{
       state.isLoading = true;
@@ -99,7 +66,6 @@ export const {
   setSelectedIndex,
   increaseQuantity,
   decreaseQuantity,
-  addProductToFavorite,
   getProducts
 } = productSlice.actions;
 export default productSlice.reducer;

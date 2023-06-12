@@ -4,8 +4,10 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./productDetails.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, addToFavorite, getProductData } from "../../redux/actions/products_action";
+import { getProductData } from "../../redux/actions/products_action";
 import { decreaseQuantity, increaseQuantity, setSelectedImage, setSelectedIndex } from "../../redux/reducers/product_reduce";
+import { addToFavorite } from "../../redux/actions/favorite_action";
+import { addToCart } from "../../redux/actions/cart_action";
 
 function ProductDetails() {
   // const [productData, setProductData] = useState({});
@@ -37,6 +39,7 @@ function ProductDetails() {
 
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.product);
+
   const productData = productDetails?.productData?.data?.data || {} ;
   console.log(productData);
 
@@ -149,7 +152,6 @@ function ProductDetails() {
           onClick={() =>{
             //  addToFavorite(productData.id)
             dispatch(addToFavorite(productData.id))
-            console.log(productDetails.product.inFavorite)
           }
             }
         >
@@ -160,8 +162,6 @@ function ProductDetails() {
           onClick={() => {
             // addToCart(productData.id);
             dispatch(addToCart(productData.id));
-            console.log(productDetails.product.inCart)
-
           }}
         >
           ADD TO CART 
