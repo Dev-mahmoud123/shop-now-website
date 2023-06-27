@@ -5,14 +5,15 @@ import {
   getCartProducts,
 } from "../actions/cart_action";
 
+
+
 const initialState = {
   cartProducts: [],
-  totalPrice: 0,
   error: null,
   isLoading: true,
   deliveryOption: "free",
   cartTotalAmount: 0,
-  cartTotalQuantity: 0,
+  cartTotalQuantity: 1,
 };
 
 const cartSlice = createSlice({
@@ -44,7 +45,7 @@ const cartSlice = createSlice({
     });
     builder.addCase(addToCart.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.cartProducts.push(action.payload);
+      state.cartProducts.push(action.payload)
     });
     builder.addCase(addToCart.rejected, (state, action) => {
       state.isLoading = false;
@@ -58,15 +59,15 @@ const cartSlice = createSlice({
         state.isLoading = false;
         state.cartProducts = action.payload;
         let amount = 0;
-        let quantity = 0; 
-        console.log(state.cartProducts?.data)
+        let quantity = 0;
+        console.log(state.cartProducts?.data);
         const cartItems = state.cartProducts?.data?.data?.cart_items;
         cartItems.forEach((item) => {
           quantity += item.quantity;
           console.log(quantity);
           amount += item.product.price * item.quantity;
         });
-  
+
         state.cartTotalAmount = amount;
         console.log(state.cartTotalAmount);
         state.cartTotalQuantity = quantity;
@@ -82,7 +83,7 @@ const cartSlice = createSlice({
       })
       .addCase(deleteCartProducts.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.cartProducts = action.payload;
+        state.cartProducts.filter((item)=> item.id === action.payload);
       })
       .addCase(deleteCartProducts.rejected, (state, action) => {
         state.isLoading = false;
