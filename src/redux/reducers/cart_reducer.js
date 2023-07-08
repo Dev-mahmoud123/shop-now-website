@@ -60,16 +60,13 @@ const cartSlice = createSlice({
         state.cartProducts = action.payload;
         let amount = 0;
         let quantity = 0;
-        console.log(state.cartProducts?.data);
         const cartItems = state.cartProducts?.data?.data?.cart_items;
         cartItems.forEach((item) => {
           quantity += item.quantity;
-          console.log(quantity);
           amount += item.product.price * item.quantity;
         });
 
         state.cartTotalAmount = amount;
-        console.log(state.cartTotalAmount);
         state.cartTotalQuantity = quantity;
       })
       .addCase(getCartProducts.rejected, (state, action) => {
