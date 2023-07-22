@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useCallback, useEffect, useState } from "react";
+// import axios from "axios";
+import React, {  useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import "../products/product.scss";
 import { useDispatch, useSelector } from "react-redux";
