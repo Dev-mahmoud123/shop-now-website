@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./complaint.scss";
-import axios from "axios";
-import { toast } from "react-toastify";
+// import axios from "axios";
+// import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { sendCompliant } from "../../redux/actions/complaint_action";
 

@@ -4,7 +4,7 @@ import {
   useGetDataWithLanguage,
   useGetDataWithoutHeaders,
 } from "../../hooks/useGetData";
-import axios from "axios";
+// import axios from "axios";
 
 export const getBanner = createAsyncThunk("home/getBanner", async () => {
   try {

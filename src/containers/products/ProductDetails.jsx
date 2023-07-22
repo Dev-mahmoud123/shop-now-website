@@ -1,7 +1,7 @@
-import axios from "axios";
-import React, { useState, useEffect, useCallback } from "react";
+// import axios from "axios";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import "./productDetails.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductData } from "../../redux/actions/products_action";

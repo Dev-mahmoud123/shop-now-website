@@ -1,7 +1,7 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+// import axios from "axios";
+import useEffect from "react";
 import "./cart.scss";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteCartProducts,
@@ -9,7 +9,7 @@ import {
 } from "../../redux/actions/cart_action";
 import {
   decreaseQuantity,
-  getTotalPrice,
+  // getTotalPrice,
   increaseQuantity,
   setDeliveryOption,
 } from "../../redux/reducers/cart_reducer";

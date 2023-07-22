@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useGetData, useGetDataWithLanguage } from "../../hooks/useGetData";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 // function to get all products from home endpoint 
 export const getAllProducts = createAsyncThunk('product/getAllProducts' , async()=>{
